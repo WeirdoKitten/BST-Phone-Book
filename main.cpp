@@ -4,6 +4,8 @@
 int main() {
     int inputMenu;
     char inputSearch[50];
+    char newName[50];
+    char newNumber[13];
 
     loadFromFile("data.txt");
     while (true) {
@@ -28,6 +30,19 @@ int main() {
                 toCapitalizeCase(inputSearch); // Ubah nama yang diinput menjadi kapital case
                 printf("\n");
                 search(root, inputSearch);
+                getch();
+                break;
+            case 4:
+                system("cls");
+                while((getchar())!='\n');
+                printf("Inputkan nama yang ingin diupdate: ");
+                scanf("%[^\n]%*c", inputSearch);
+                toCapitalizeCase(inputSearch); // Ubah nama yang diinput menjadi kapital case
+                printf("Inputkan nama baru (tekan enter jika tidak ingin mengubah nama): ");
+                scanf("%[^\n]%*c", newName);
+                printf("Inputkan nomor telepon baru (tekan enter jika tidak ingin mengubah nomor telepon): ");
+                scanf("%[^\n]%*c", newNumber);
+                updateContact(root, inputSearch, newName, newNumber);
                 getch();
                 break;
             case 5:

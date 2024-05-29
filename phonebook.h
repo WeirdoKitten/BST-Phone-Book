@@ -88,4 +88,10 @@ node* deleteContact(node *root, char inputName[50]);
     Tujuan Prosedur : 
 */
 
+void updateContact(node *root, const char *inputName, const char *newName, char newNumber[13]);
+/*
+    Penulis         : 
+    Tujuan Prosedur : 
+*/
+
 #endif
