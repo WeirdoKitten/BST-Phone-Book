@@ -107,14 +107,9 @@ void inputData() {
 
     insertData(inputNama, inputNumber);
 
-    FILE *file = fopen("data.txt", "w");
-    if (file != NULL) {
-        saveToFile(root, file);
-        fclose(file);
-    } else {
-        printf("Gagal membuka file\n");
-    }
+    saveToFile(root, "data.txt"); 
 }
+
 
 void search(node *root, char inputName[50]) {
     char formattedName[50];
@@ -140,19 +135,27 @@ void search(node *root, char inputName[50]) {
     }
 }
 
-void saveToFile(node *root, FILE *file) {
-    if (root != NULL) {
-        saveToFile(root->left, file);
-        fprintf(file, "Nama: %s\n", root->name);
-        numberList *numList = root->phoneNumberS;
-        while (numList != NULL) {
-            fprintf(file, "Nomor Telepon: %s\n", numList->phoneNumber);
-            numList = numList->next;
+void saveToFile(node *root, const char *filename) {
+    FILE *file = fopen(filename, "w");
+    if (file != NULL) {
+        if (root != NULL) {
+            saveToFile(root->left, filename);
+            fprintf(file, "Nama: %s\n", root->name);
+            numberList *numList = root->phoneNumberS;
+            while (numList != NULL) {
+                fprintf(file, "Nomor Telepon: %s\n", numList->phoneNumber);
+                numList = numList->next;
+            }
+            fprintf(file, "===================================================\n\n");
+            saveToFile(root->right, filename);
         }
-        fprintf(file, "===================================================\n\n");
-        saveToFile(root->right, file);
+        fclose(file);
+    } else {
+        printf("Gagal membuka file\n");
     }
 }
+
+
 
 void loadFromFile(const char *filename) {
     FILE *file = fopen(filename, "r");
@@ -173,4 +176,40 @@ void loadFromFile(const char *filename) {
     }
 
     fclose(file);
+}
+
+node* findMin(node* root) {
+    while (root->left != NULL) root = root->left;
+    return root;
+}
+
+node* deleteContact(node *root, char inputName[50]) {
+    if (root == NULL) return root;
+
+    if (strcmp(inputName, root->name) < 0)
+        root->left = deleteContact(root->left, inputName);
+    else if (strcmp(inputName, root->name) > 0)
+        root->right = deleteContact(root->right, inputName);
+    else {
+        if (root->left == NULL) {
+            node *temp = root->right;
+            free(root);
+            return temp;
+        }
+        else if (root->right == NULL) {
+            node *temp = root->left;
+            free(root);
+            return temp;
+        }
+
+        node *temp = findMin(root->right);
+        strcpy(root->name, temp->name);
+        root->phoneNumberS = temp->phoneNumberS;
+        root->right = deleteContact(root->right, temp->name);
+    }
+
+    
+    saveToFile(root, "data.txt");
+
+    return root;
 }

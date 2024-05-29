@@ -57,7 +57,8 @@ void search(node *root, char inputName[50]);
     Tujuan Prosedur : 
 */
 
-void saveToFile(node *root, FILE *file);
+void saveToFile(node *root, const char *filename);
+
 /*
     Penulis         : 
     Tujuan Prosedur : 
@@ -70,6 +71,18 @@ void loadFromFile(const char *filename);
 */
 
 void toCapitalizeCase(char str[]);
+/*
+    Penulis         : 
+    Tujuan Prosedur : 
+*/
+
+node* findMin(node* root);
+/*
+    Penulis         : 
+    Tujuan Prosedur : 
+*/
+
+node* deleteContact(node *root, char inputName[50]);
 /*
     Penulis         : 
     Tujuan Prosedur : 
