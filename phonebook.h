@@ -6,22 +6,33 @@
 #include <string.h>
 #include <conio.h>
 
-typedef struct node{
+typedef struct numberList {
+    char phoneNumber[13];
+    struct numberList *next;
+} numberList;
+
+typedef struct node {
     char name[50];
-    char phoneNumber[5][15];
-    node *left;
-    node *right;
+    numberList *phoneNumberS;
+    struct node *left;
+    struct node *right;
 } node;
 
 extern node* root;
 
-node* createNode(char inputName[50], char inputNumber[15]);
+node* createNode(char inputName[50], char inputNumber[13]);
 /*
     Penulis         : 
     Tujuan Prosedur : 
 */
 
-void insertData(char inputName[50], char inputNumber[15]);
+void insertData(char inputName[50], char inputNumber[13]);
+/*
+    Penulis         : 
+    Tujuan Prosedur : 
+*/
+
+void addPhoneNumber(node *personNode, char inputNumber[13]);
 /*
     Penulis         : 
     Tujuan Prosedur : 

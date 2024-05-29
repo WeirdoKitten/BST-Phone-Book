@@ -1,109 +1,110 @@
 #include "phonebook.h"
+
 node *root = NULL;
 
-node *createNode(char inputName[50], char inputNumber[15])
-{
+node *createNode(char inputName[50], char inputNumber[13]) {
     node *newNode = (node *)malloc(sizeof(node));
-    if (newNode == NULL)
-    {
+    numberList *newNumber = (numberList *)malloc(sizeof(numberList));
+    if (newNode == NULL || newNumber == NULL) {
         return NULL;
     }
     strcpy(newNode->name, inputName);
-    strcpy(newNode->phoneNumber[0], inputNumber);
+    strcpy(newNumber->phoneNumber, inputNumber);
+    newNumber->next = NULL;
+    newNode->phoneNumberS = newNumber;
     newNode->left = NULL;
     newNode->right = NULL;
     return newNode;
 }
 
-void insertData(char inputName[50], char inputNumber[15])
-{
-    node *currNode = root;
-    node *prevNode;
-    if (root == NULL)
-    {
-        node *newNode = createNode(inputName, inputNumber);
-        root = newNode;
+void addPhoneNumber(node *personNode, char inputNumber[13]) {
+    numberList *newNumber = (numberList *)malloc(sizeof(numberList));
+    if (newNumber == NULL) {
         return;
     }
-    while (currNode != NULL)
-    {
+    strcpy(newNumber->phoneNumber, inputNumber);
+    newNumber->next = NULL;
+
+    numberList *current = personNode->phoneNumberS;
+    while (current->next != NULL) {
+        current = current->next;
+    }
+    current->next = newNumber;
+}
+
+void insertData(char inputName[50], char inputNumber[13]) {
+    node *currNode = root;
+    node *prevNode = NULL;
+
+    if (root == NULL) {
+        root = createNode(inputName, inputNumber);
+        return;
+    }
+
+    while (currNode != NULL) {
         prevNode = currNode;
-        if (strcmp(currNode->name, inputName) == 0)
-        {
-            printf("nama sudah tersedia");
+        if (strcmp(currNode->name, inputName) == 0) {
+            addPhoneNumber(currNode, inputNumber);
             return;
-        }
-        else if (strcmp(currNode->name, inputName) > 0)
-        {
+        } else if (strcmp(currNode->name, inputName) > 0) {
             currNode = currNode->left;
-        }
-        else
-        {
+        } else {
             currNode = currNode->right;
         }
     }
 
     node *newNode = createNode(inputName, inputNumber);
-
-    if (strcmp(prevNode->name, inputName) > 0)
-    {
+    if (strcmp(prevNode->name, inputName) > 0) {
         prevNode->left = newNode;
-    }
-    else
-    {
+    } else {
         prevNode->right = newNode;
     }
 }
 
-void printAllNode(node *currNode)
-{
-    if (currNode != NULL)
-    {
+void printAllNode(node *currNode) {
+    if (currNode != NULL) {
         printAllNode(currNode->left);
         printf("===================================================\n");
         printf("Nama          : %s\n", currNode->name);
-        printf("Nomor Telepon : %s\n", currNode->phoneNumber);
+        numberList *numList = currNode->phoneNumberS;
+        while (numList != NULL) {
+            printf("Nomor Telepon : %s\n", numList->phoneNumber);
+            numList = numList->next;
+        }
         printf("===================================================\n\n");
         printAllNode(currNode->right);
     }
 }
 
-void inputData()
-{
+void inputData() {
     char inputNama[50];
-    char inputNumber[15];
+    char inputNumber[13];
 
-    while ((getchar()) != '\n')
-        ;
+    while ((getchar()) != '\n');
     printf("Inputkan Nama : ");
     scanf("%[^\n]%*c", inputNama);
-
     printf("Inputkan Nomor Telepon: ");
     scanf("%[^\n]%*c", inputNumber);
+
     insertData(inputNama, inputNumber);
 }
 
-void search(node *root, char inputName[50])
-{
-    if (root != NULL)
-    {
-
-        if (strstr(root->name, inputName))
-        {
+void search(node *root, char inputName[50]) {
+    if (root != NULL) {
+        if (strstr(root->name, inputName)) {
             printf("===================================================\n");
             printf("Nama          : %s\n", root->name);
-            printf("Nomor Telepon : %s\n", root->phoneNumber);
+            numberList *numList = root->phoneNumberS;
+            while (numList != NULL) {
+                printf("Nomor Telepon : %s\n", numList->phoneNumber);
+                numList = numList->next;
+            }
             printf("===================================================\n\n");
         }
-        if (strcmp(inputName, root->name) < 0)
-        {
-            search(root->left, inputName); // Cari di subtree kiri jika substring lebih kecil
-        }
-        else
-        {
-            search(root->right, inputName); // Cari di subtree kanan jika substring lebih besar atau sama
-        
+        if (strcmp(inputName, root->name) < 0) {
+            search(root->left, inputName); 
+        } else {
+            search(root->right, inputName); 
         }
     }
 }
-
