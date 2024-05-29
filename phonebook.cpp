@@ -225,19 +225,14 @@ void updateContact(node *root, const char *inputName, const char *newName, char 
     else if (strcmp(inputName, root->name) > 0)
         updateContact(root->right, inputName, newName, newNumber);
     else {
-        // Kontak ditemukan, perbarui nama atau nomor
         if (newName != NULL && strlen(newName) > 0) {
-            // Update nama kontak
             strcpy(root->name, newName);
         }
         if (newNumber != NULL && strlen(newNumber) > 0) {
-            // Update nomor telepon kontak
             numberList *numList = root->phoneNumberS;
             if (numList != NULL) {
-                // Jika nomor telepon sudah ada, timpa dengan yang baru
                 strcpy(numList->phoneNumber, newNumber);
             } else {
-                // Jika tidak ada nomor telepon, tambahkan nomor baru
                 addPhoneNumber(root, newNumber);
             }
         }
