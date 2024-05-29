@@ -5,6 +5,8 @@ int main()
 {
     int inputMenu;
     char inputSearch[50];
+
+    loadFromFile("data.txt");
     while (true)
     {
         system("cls");

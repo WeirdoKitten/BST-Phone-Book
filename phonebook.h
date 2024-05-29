@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <conio.h>
+#include <ctype.h>
 
 typedef struct numberList {
     char phoneNumber[13];
@@ -51,6 +52,24 @@ void printAllNode(node *currNode);
 */
 
 void search(node *root, char inputName[50]);
+/*
+    Penulis         : 
+    Tujuan Prosedur : 
+*/
+
+void saveToFile(node *root, FILE *file);
+/*
+    Penulis         : 
+    Tujuan Prosedur : 
+*/
+
+void loadFromFile(const char *filename);
+/*
+    Penulis         : 
+    Tujuan Prosedur : 
+*/
+
+void toCapitalizeCase(char str[]);
 /*
     Penulis         : 
     Tujuan Prosedur : 
