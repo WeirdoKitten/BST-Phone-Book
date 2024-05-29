@@ -56,3 +56,4 @@ Module.symvers
 Mkfile.old
 dkms.conf
 main.exe
+data.txt
