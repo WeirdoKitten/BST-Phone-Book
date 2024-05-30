@@ -3,10 +3,9 @@
 
 #include "phonebook.h"
 
-void printMenu();
 /*
-    Penulis         : 
-    Tujuan Prosedur : 
+    Tujuan Prosedur : Menampilkan menu
 */
+void printMenu();
 
 #endif
