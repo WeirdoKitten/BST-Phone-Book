@@ -77,6 +77,11 @@ node* findMin(node* root);
 */
 node* deleteContact(node *root, char inputName[50]);
 
+/*
+    Tujuan Prosedur : menghapus kontak saat node didelete
+*/
+void freeNumberList(numberList *numList);
+
 /* 
     Tujuan Prosedur : memperbarui data nama dan/atau nomor telepon pada node tertentu dalam binary search tree. 
 */
