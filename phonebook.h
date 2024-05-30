@@ -56,6 +56,7 @@ void search(node *root, char inputName[50]);
 */
 void saveToFile(node *root, const char *filename);
 
+void writeToFile(node *root, FILE *file);
 
 /* 
     Tujuan Prosedur : memuat data nama dan nomor telepon dari file eksternal ke dalam binary search tree.

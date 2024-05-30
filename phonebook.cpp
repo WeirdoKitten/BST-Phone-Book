@@ -167,29 +167,33 @@ void search(node *root, char inputName[50])
     }
 }
 
-void saveToFile(node *root, const char *filename)
-{
-    FILE *file = fopen(filename, "w");
-    if (file != NULL)
-    {
-        if (root != NULL)
-        {
-            saveToFile(root->left, filename);
-            fprintf(file, "Nama: %s\n", root->name);
-            numberList *numList = root->phoneNumberS;
-            while (numList != NULL)
-            {
-                fprintf(file, "Nomor Telepon: %s\n", numList->phoneNumber);
-                numList = numList->next;
-            }
-            fprintf(file, "===================================================\n\n");
-            saveToFile(root->right, filename);
-        }
-        fclose(file);
+void saveToFile(node *root, const char *filename) {
+    char tempFilename[256];
+    sprintf(tempFilename, "%s.tmp", filename);
+
+    FILE *tempFile = fopen(tempFilename, "w");
+    if (tempFile != NULL) {
+        writeToFile(root, tempFile);
+        fclose(tempFile);
+
+        remove(filename);
+        rename(tempFilename, filename);
+    } else {
+        printf("Gagal membuat file sementara\n");
     }
-    else
-    {
-        printf("Gagal membuka file\n");
+}
+
+void writeToFile(node *root, FILE *file) {
+    if (root != NULL) {
+        writeToFile(root->left, file);
+        fprintf(file, "Nama: %s\n", root->name);
+        numberList *numList = root->phoneNumberS;
+        while (numList != NULL) {
+            fprintf(file, "Nomor Telepon: %s\n", numList->phoneNumber);
+            numList = numList->next;
+        }
+        fprintf(file, "===================================================\n\n");
+        writeToFile(root->right, file);
     }
 }
 
