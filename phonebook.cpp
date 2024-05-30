@@ -237,15 +237,22 @@ node *deleteContact(node *root, char inputName[50])
         root->right = deleteContact(root->right, inputName);
     else
     {
-        if (root->left == NULL)
+        if(root->left == NULL && root->right == NULL){
+            freeNumberList(root->phoneNumberS);
+            free(root);
+            return NULL;
+        }
+        else if (root->left == NULL)
         {
             node *temp = root->right;
+            freeNumberList(root->phoneNumberS);
             free(root);
             return temp;
         }
         else if (root->right == NULL)
         {
             node *temp = root->left;
+            freeNumberList(root->phoneNumberS);
             free(root);
             return temp;
         }
@@ -259,6 +266,15 @@ node *deleteContact(node *root, char inputName[50])
     saveToFile(root, "data.txt");
 
     return root;
+}
+
+void freeNumberList(numberList *numList) {
+    numberList *current = numList;
+    while (current != NULL) {
+        numberList *next = current->next;
+        free(current);
+        current = next;
+    }
 }
 
 void updateContact(node *root, const char *inputName, const char *newName, char newNumber[13])
