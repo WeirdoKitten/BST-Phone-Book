@@ -136,34 +136,24 @@ void inputData()
     saveToFile(root, "data.txt");
 }
 
-void search(node *root, char inputName[50])
-{
+void search(node *root, char inputName[50]) {
     char formattedName[50];
     strcpy(formattedName, inputName);
     toCapitalizeCase(formattedName);
 
-    if (root != NULL)
-    {
-        if (strstr(root->name, formattedName))
-        {
+    if (root != NULL) {
+        if (strstr(root->name, formattedName)) {
             printf("===================================================\n");
             printf("Nama          : %s\n", root->name);
             numberList *numList = root->phoneNumberS;
-            while (numList != NULL)
-            {
+            while (numList != NULL) {
                 printf("Nomor Telepon : %s\n", numList->phoneNumber);
                 numList = numList->next;
             }
             printf("===================================================\n\n");
         }
-        if (strcmp(formattedName, root->name) < 0)
-        {
-            search(root->left, formattedName);
-        }
-        else
-        {
-            search(root->right, formattedName);
-        }
+        search(root->left, formattedName);
+        search(root->right, formattedName);
     }
 }
 
