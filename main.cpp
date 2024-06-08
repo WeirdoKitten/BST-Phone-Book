@@ -43,13 +43,15 @@ int main() {
                 break;
             case 4:
                 system("cls");
-                while((getchar())!='\n');
                 printf("Inputkan nama yang ingin diupdate: ");
+                while((getchar())!='\n');
                 scanf("%[^\n]%*c", inputSearch);
                 toCapitalizeCase(inputSearch); // Ubah nama yang diinput menjadi kapital case
                 printf("Inputkan nama baru (tekan enter jika tidak ingin mengubah nama): ");
+                while ((getchar()) != '\n');
                 scanf("%[^\n]%*c", newName);
                 printf("Inputkan nomor telepon baru (tekan enter jika tidak ingin mengubah nomor telepon): ");
+                while ((getchar()) != '\n');
                 scanf("%[^\n]%*c", newNumber);
                 updateContact(root, inputSearch, newName, newNumber);
                 printf("\nEnter untuk melanjutkan------ ");
