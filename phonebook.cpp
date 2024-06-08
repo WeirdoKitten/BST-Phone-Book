@@ -301,8 +301,7 @@ void updateContact(node *root, const char *inputName, const char *newName, char 
                 addPhoneNumber(root, newNumber);
             }
         }
-        printf("Kontak berhasil diperbarui\n");
         saveToFile(root, "data.txt");
-        return;
+        printf("Kontak berhasil diperbarui\n");
     }
 }

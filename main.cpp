@@ -59,6 +59,7 @@ int main()
             printf("Inputkan nama baru (tekan enter jika tidak ingin mengubah nama): ");
             fgets(newName, sizeof(newName), stdin);
             newName[strcspn(newName, "\n")] = '\0'; // Menghilangkan newline dari akhir input
+            toCapitalizeCase(newName);
 
             printf("Inputkan nomor telepon baru (tekan enter jika tidak ingin mengubah nomor telepon): ");
             fgets(newNumber, sizeof(newNumber), stdin);
