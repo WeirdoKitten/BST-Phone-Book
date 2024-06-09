@@ -86,6 +86,6 @@ void freeNumberList(numberList *numList);
 /* 
     Tujuan Prosedur : memperbarui data nama dan/atau nomor telepon pada node tertentu dalam binary search tree. 
 */
-void updateContact(node *root, const char *inputName, const char *newName, char newNumber[13]);
+void updateContact(node *root, const char *inputName, const char *newName, char newNumber[13], int isRecursive);
 
 #endif

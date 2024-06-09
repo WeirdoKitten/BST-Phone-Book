@@ -65,7 +65,7 @@ int main()
             fgets(newNumber, sizeof(newNumber), stdin);
             newNumber[strcspn(newNumber, "\n")] = '\0'; // Menghilangkan newline dari akhir input
 
-            updateContact(root, inputSearch, strlen(newName) > 0 ? newName : NULL, strlen(newNumber) > 0 ? newNumber : NULL);
+            updateContact(root, inputSearch, strlen(newName) > 0 ? newName : NULL, strlen(newNumber) > 0 ? newNumber : NULL, 0);
 
             printf("\nEnter untuk melanjutkan------ ");
             getch();
