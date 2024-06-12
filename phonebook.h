@@ -88,4 +88,14 @@ void freeNumberList(numberList *numList);
 */
 void updateContact(node *root, const char *inputName, const char *newName, char newNumber[13], int isRecursive);
 
+/*
+    Tujuan Prosedur : menampilkan nomor telepon dalam linked list
+*/
+void displayPhoneNumbers(numberList *phoneNumbers);
+
+/*
+    Tujuan Prosedur : update nomor telepon saja
+*/
+void updatePhoneNumber(node *contact, int index, char newNumber[13]);
+
 #endif
