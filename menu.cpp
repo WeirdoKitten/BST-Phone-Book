@@ -1,6 +1,6 @@
 #include "menu.h"
 
-void printMenu()
+void printBanner()
 {
     printf("\n\n          ");
     printf("%c", 201);
@@ -26,6 +26,11 @@ void printMenu()
         printf("%c", 205);
     }
     printf ("%c", 188);
+}
+
+void printMenu()
+{
+    printBanner();
 
     printf("\n\n\n                                                    Selamat Datang Di Program MyContact !!\n\n\n");
     printf("                                            ______________________________________________________ \n");

@@ -8,4 +8,6 @@
 */
 void printMenu();
 
+void printBanner();
+
 #endif

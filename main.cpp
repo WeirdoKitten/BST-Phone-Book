@@ -21,10 +21,10 @@ int main()
             system("cls");
             if (root == NULL)
             {
-                printf("Kontak kosong");
+                printf("\t\t\t\tKontak Tidak Tersedia");
             }
             printAllNode(root);
-            printf("\nEnter untuk melanjutkan------ ");
+            printf("\n\t\t\t\tEnter untuk melanjutkan------ ");
             getch();
             break;
         case 2:
@@ -35,85 +35,84 @@ int main()
             system("cls");
             if (root == NULL)
             {
-                printf("Kosong");
+                printBanner();
+                printf("\t\t\t\tData Tidak Tersedia");
                 getch();
                 break;
             }
-            while ((getchar()) != '\n')
-                ;
-            printf("inputkan nama yang ingin dicari : ");
+            while ((getchar()) != '\n');
+            printBanner();
+            printf("\n\n\n\t\t\t\t\tinputkan nama yang ingin dicari : ");
             scanf("%[^\n]%*c", inputSearch);
             toCapitalizeCase(inputSearch); // Ubah nama yang diinput menjadi kapital case
             printf("\n");
             search(root, inputSearch, &ditemukan);
             if (ditemukan == false)
             {
-                printf("\nTidak ada...");
+                printf("\n\t\t\t\tTidak ada...");
             }
-            printf("\nEnter untuk melanjutkan------ ");
+            printf("\n\t\t\t\t\tEnter untuk melanjutkan------ ");
             getch();
             break;
         case 4:
             system("cls");
-            while ((getchar()) != '\n')
-                ;
-            printf("Cari nama kontak yang ingin update : ");
+            while ((getchar()) != '\n');
+            printBanner();
+            printf("\n\n\n\t\t\t\t\tCari nama kontak yang ingin update : ");
             scanf("%[^\n]%*c", inputSearch);
             toCapitalizeCase(inputSearch); // Ubah nama yang diinput menjadi kapital case
             search(root, inputSearch, &ditemukan);
             if (ditemukan == false)
             {
-                printf("\nKosong\nEnter untuk melanjutkan------ ");
+                printf("\n\t\t\t\tKosong\n\t\t\t\tEnter untuk melanjutkan------ ");
                 getch();
                 goto break_case4;
             }
-            printf("\nEnter untuk melanjutkan------ ");
-            while ((getchar()) != '\n')
-                ;
-            printf("Inputkan nama yang ingin diupdate: ");
+            printf("\n\t\t\t\tEnter untuk melanjutkan------ ");
+            while ((getchar()) != '\n');
+            printf("\t\t\t\t\tInputkan nama yang ingin diupdate: ");
             fgets(inputSearch, sizeof(inputSearch), stdin);
             inputSearch[strcspn(inputSearch, "\n")] = '\0'; // Menghilangkan newline dari akhir input
             toCapitalizeCase(inputSearch);
 
-            printf("Inputkan nama baru (tekan enter jika tidak ingin mengubah nama): ");
+            printf("\t\t\t\t\tInputkan nama baru (tekan enter jika tidak ingin mengubah nama): ");
             fgets(newName, sizeof(newName), stdin);
             newName[strcspn(newName, "\n")] = '\0'; // Menghilangkan newline dari akhir input
             toCapitalizeCase(newName);
 
-            printf("Inputkan nomor telepon baru (tekan enter jika tidak ingin mengubah nomor telepon): ");
+            printf("\t\t\t\t\tInputkan nomor telepon baru (tekan enter jika tidak ingin mengubah nomor telepon): ");
             fgets(newNumber, sizeof(newNumber), stdin);
             newNumber[strcspn(newNumber, "\n")] = '\0'; // Menghilangkan newline dari akhir input
 
             updateContact(root, inputSearch, strlen(newName) > 0 ? newName : NULL, strlen(newNumber) > 0 ? newNumber : NULL, 0);
 
-            printf("\nEnter untuk melanjutkan------ ");
+            printf("\n\t\t\t\t\tEnter untuk melanjutkan------ ");
             getch();
         break_case4:
             break;
         case 5:
             system("cls");
-            while ((getchar()) != '\n')
-                ;
-            printf("Cari nama kontak yang ingin dihapus: ");
+            printBanner();
+            while ((getchar()) != '\n');
+            printf("\n\n\n\t\t\t\t\tCari nama kontak yang ingin dihapus: ");
             scanf("%[^\n]%*c", inputSearch);
             toCapitalizeCase(inputSearch); // Ubah nama yang diinput menjadi kapital case
             search(root, inputSearch, &ditemukan);
             if (ditemukan == false)
             {
-                printf("\nKosong\nEnter untuk melanjutkan------ ");
+                printf("\n\t\t\t\tKosong\n\t\t\t\tEnter untuk melanjutkan------ ");
                 getch();
                 goto break_case5;
             }
             printf("\nEnter untuk melanjutkan------ ");
-            while ((getchar()) != '\n')
-                ;
-            printf("inputkan nama yang ingin dihapus : ");
+            while ((getchar()) != '\n');
+            printf("\t\t\t\t\tinputkan nama yang ingin dihapus : ");
             scanf("%[^\n]%*c", inputSearch);
             toCapitalizeCase(inputSearch); // Ubah nama yang diinput menjadi kapital case
             printf("\n");
             root = deleteContact(root, inputSearch);
-            printf("Kontak berhasil dihapus.\n");
-            printf("Enter untuk melanjutkan------ ");
+            printf("\t\t\t\t\tKontak berhasil dihapus.\n");
+            printf("\t\t\t\t\tEnter untuk melanjutkan------ ");
             getch();
         break_case5:
             break;
