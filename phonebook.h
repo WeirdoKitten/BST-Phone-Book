@@ -49,7 +49,7 @@ void printAllNode(node *currNode);
 /* 
     Tujuan Prosedur : mencari node berdasarkan nama yang diinputkan, kemudian mencetak nama dan daftar nomor telepon yang dimilikinya.
 */
-void search(node *root, char inputName[50]);
+void search(node *root, char inputName[50], bool* found);
 
 /* 
     Tujuan Prosedur : menyimpan semua data nama dan nomor telepon yang tersimpan dalam binary search tree ke dalam file eksternal.
