@@ -103,4 +103,10 @@ void displayPhoneNumbers(numberList *phoneNumbers);
 */
 void updatePhoneNumber(node *contact, int index, char newNumber[13]);
 
+/*
+    Tujuan Fungsi : unutuk clone linked list
+*/
+numberList* cloneNumberList(numberList *head);
+
+
 #endif

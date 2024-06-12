@@ -3,7 +3,8 @@
 
 node *root = NULL;
 
-int height(node *N) {
+int height(node *N)
+{
     if (N == NULL)
         return 0;
     int leftHeight = height(N->left);
@@ -11,13 +12,15 @@ int height(node *N) {
     return (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
 }
 
-int balanceFactor(node *N) {
+int balanceFactor(node *N)
+{
     if (N == NULL)
         return 0;
     return height(N->left) - height(N->right);
 }
 
-node *rightRotate(node *y) {
+node *rightRotate(node *y)
+{
     node *x = y->left;
     node *T2 = x->right;
 
@@ -27,7 +30,8 @@ node *rightRotate(node *y) {
     return x;
 }
 
-node *leftRotate(node *x) {
+node *leftRotate(node *x)
+{
     node *y = x->right;
     node *T2 = y->left;
 
@@ -41,10 +45,13 @@ node *createNode(char inputName[50], char inputNumber[13])
 {
     node *newNode = (node *)malloc(sizeof(node));
     numberList *newNumber = (numberList *)malloc(sizeof(numberList));
-    if (newNode == NULL || newNumber == NULL) {
+    if (newNode == NULL || newNumber == NULL)
+    {
         printf("Gagal mengalokasikan memori\n");
-        if (newNode != NULL) free(newNode);
-        if (newNumber != NULL) free(newNumber);
+        if (newNode != NULL)
+            free(newNode);
+        if (newNumber != NULL)
+            free(newNumber);
         return NULL;
     }
     strcpy(newNode->name, inputName);
@@ -54,17 +61,18 @@ node *createNode(char inputName[50], char inputNumber[13])
     newNode->left = NULL;
     newNode->right = NULL;
     return newNode;
-
 }
 
-node *minValueNode(node *node1) {
+node *minValueNode(node *node1)
+{
     node *current = node1;
     while (current->left != NULL)
         current = current->left;
     return current;
 }
 
-node *insertNode(node *root, char inputName[50], char inputNumber[13]) {
+node *insertNode(node *root, char inputName[50], char inputNumber[13])
+{
     if (root == NULL)
         return createNode(inputName, inputNumber);
 
@@ -81,10 +89,13 @@ node *insertNode(node *root, char inputName[50], char inputNumber[13]) {
         root = rightRotate(root);
     else if (bf < -1 && strcmp(inputName, root->right->name) > 0)
         root = leftRotate(root);
-    else if (bf > 1 && strcmp(inputName, root->left->name) > 0) {
+    else if (bf > 1 && strcmp(inputName, root->left->name) > 0)
+    {
         root->left = leftRotate(root->left);
         root = rightRotate(root);
-    } else if (bf < -1 && strcmp(inputName, root->right->name) < 0) {
+    }
+    else if (bf < -1 && strcmp(inputName, root->right->name) < 0)
+    {
         root->right = rightRotate(root->right);
         root = leftRotate(root);
     }
@@ -176,18 +187,22 @@ void inputData()
     saveToFile(root, "data.txt");
 }
 
-void search(node *root, char inputName[50], bool *found) {
+void search(node *root, char inputName[50], bool *found)
+{
     char formattedName[50];
     strcpy(formattedName, inputName);
     toCapitalizeCase(formattedName);
 
-    if (root != NULL) {
-        if (strstr(root->name, formattedName)) {
+    if (root != NULL)
+    {
+        if (strstr(root->name, formattedName))
+        {
             *found = true;
             printf("\t\t\t\t\t\t===================================================\n");
             printf("\t\t\t\t\t\tNama          : %s\n", root->name);
             numberList *numList = root->phoneNumberS;
-            while (numList != NULL) {
+            while (numList != NULL)
+            {
                 printf("\t\t\t\t\t\tNomor Telepon : %s\n", numList->phoneNumber);
                 numList = numList->next;
             }
@@ -198,28 +213,35 @@ void search(node *root, char inputName[50], bool *found) {
     }
 }
 
-void saveToFile(node *root, const char *filename) {
+void saveToFile(node *root, const char *filename)
+{
     char tempFilename[256];
     sprintf(tempFilename, "%s.tmp", filename);
 
     FILE *tempFile = fopen(tempFilename, "w");
-    if (tempFile != NULL) {
+    if (tempFile != NULL)
+    {
         writeToFile(root, tempFile);
         fclose(tempFile);
 
         remove(filename);
         rename(tempFilename, filename);
-    } else {
+    }
+    else
+    {
         printf("Gagal membuat file sementara\n");
     }
 }
 
-void writeToFile(node *root, FILE *file) {
-    if (root != NULL) {
+void writeToFile(node *root, FILE *file)
+{
+    if (root != NULL)
+    {
         writeToFile(root->left, file);
         fprintf(file, "Nama: %s\n", root->name);
         numberList *numList = root->phoneNumberS;
-        while (numList != NULL) {
+        while (numList != NULL)
+        {
             fprintf(file, "Nomor Telepon: %s\n", numList->phoneNumber);
             numList = numList->next;
         }
@@ -261,23 +283,57 @@ node *findMin(node *root)
     return root;
 }
 
-void deletePhoneNumber(node *contact, int index) {
+void deletePhoneNumber(node *contact, int index)
+{
     numberList *current = contact->phoneNumberS;
     numberList *prev = NULL;
-    for (int i = 1; current != NULL && i < index; i++) {
+    int count = 1;
+    if (index < 1)
+    {
+        return;
+    }
+    if (index == 1)
+    {
+        contact->phoneNumberS = current->next;
+        free(current);
+        return;
+    }
+    while (current != NULL && count < index)
+    {
         prev = current;
         current = current->next;
+        count++;
     }
-    if (current != NULL) {
-        if (prev == NULL) {
-            contact->phoneNumberS = current->next;
-        } else {
-            prev->next = current->next;
-        }
+    if (current != NULL)
+    {
+        prev->next = current->next;
         free(current);
-    } else {
+    }
+    else
+    {
         printf("Nomor telepon tidak valid.\n");
     }
+}
+
+numberList *cloneNumberList(numberList *head)
+{
+    if (head == NULL)
+    {
+        return NULL;
+    }
+
+    // Salin node saat ini
+    numberList *newNode = (numberList *)malloc(sizeof(numberList));
+    if (newNode == NULL)
+    {
+        return NULL;
+    }
+    strcpy(newNode->phoneNumber, head->phoneNumber);
+
+    // Salin sisa linked list secara rekursif
+    newNode->next = cloneNumberList(head->next);
+
+    return newNode;
 }
 
 node *deleteContact(node *root, char inputName[50])
@@ -289,60 +345,52 @@ node *deleteContact(node *root, char inputName[50])
         root->left = deleteContact(root->left, inputName);
     else if (strcmp(inputName, root->name) > 0)
         root->right = deleteContact(root->right, inputName);
-    else {
-         if (root->phoneNumberS->next != NULL) {
-            int choice;
-            printf("Kontak ini memiliki beberapa nomor telepon. Pilih opsi:\n");
-            printf("1. Hapus seluruh kontak\n");
-            printf("2. Hapus nomor telepon tertentu\n");
-            printf("Pilihan: ");
-            scanf("%d", &choice);
-
-            if (choice == 2) {
-                printf("Pilih nomor telepon yang ingin dihapus:\n");
-                displayPhoneNumbers(root->phoneNumberS);
-                int numChoice;
-                printf("Masukkan nomor pilihan: ");
-                scanf("%d", &numChoice);
-                deletePhoneNumber(root, numChoice);
-                saveToFile(root, "data.txt");
-                return root;
-            }
+    else
+    {
+        if (root->left == NULL && root->right == NULL)
+        {
+            freeNumberList(root->phoneNumberS);
+            free(root);
+            return NULL;
         }
-        if (root->left == NULL || root->right == NULL) {
-            node *temp = root->left ? root->left : root->right;
-
-            if (temp == NULL) {
-                temp = root;
-                freeNumberList(root->phoneNumberS);
-                free(root);
-                root = NULL;
-            } else {
-                *root = *temp;
-                freeNumberList(temp->phoneNumberS);
-                free(temp);
-            }
-        } else {
+        else if (root->left == NULL)
+        {
+            node *temp = root;
+            freeNumberList(root->phoneNumberS);
+            root = root->right;
+            free(temp);
+            return root;
+        }
+        else if (root->right == NULL)
+        {
+            node *temp = root;
+            freeNumberList(root->phoneNumberS);
+            root = root->left;
+            free(temp);
+            return root;
+        }
+        else
+        {
             node *temp = minValueNode(root->right);
             strcpy(root->name, temp->name);
-            root->phoneNumberS = temp->phoneNumberS;
+            root->phoneNumberS = cloneNumberList(temp->phoneNumberS); // Salin seluruh linked list nomor telepon
             root->right = deleteContact(root->right, temp->name);
         }
     }
-
-    if (root == NULL)
-        return root;
 
     int bf = balanceFactor(root);
 
     if (bf > 1 && balanceFactor(root->left) >= 0)
         root = rightRotate(root);
-    else if (bf > 1 && balanceFactor(root->left) < 0) {
+    else if (bf > 1 && balanceFactor(root->left) < 0)
+    {
         root->left = leftRotate(root->left);
         root = rightRotate(root);
-    } else if (bf < -1 && balanceFactor(root->right) <= 0)
+    }
+    else if (bf < -1 && balanceFactor(root->right) <= 0)
         root = leftRotate(root);
-    else if (bf < -1 && balanceFactor(root->right) > 0) {
+    else if (bf < -1 && balanceFactor(root->right) > 0)
+    {
         root->right = rightRotate(root->right);
         root = leftRotate(root);
     }
@@ -352,9 +400,11 @@ node *deleteContact(node *root, char inputName[50])
     return root;
 }
 
-void freeNumberList(numberList *numList) {
+void freeNumberList(numberList *numList)
+{
     numberList *current = numList;
-    while (current != NULL) {
+    while (current != NULL)
+    {
         numberList *next = current->next;
         free(current);
         current = next;
@@ -363,7 +413,8 @@ void freeNumberList(numberList *numList) {
 
 void updateContact(node *root, const char *inputName, const char *newName, char newNumber[13], int isRecursive)
 {
-    if (root == NULL) {
+    if (root == NULL)
+    {
         printf("Kontak tidak ditemukan\n");
         return;
     }
@@ -372,14 +423,20 @@ void updateContact(node *root, const char *inputName, const char *newName, char 
         updateContact(root->left, inputName, newName, newNumber, 1);
     else if (strcmp(inputName, root->name) > 0)
         updateContact(root->right, inputName, newName, newNumber, 1);
-    else {
-        if (newName != NULL && strlen(newName) > 0) {
+    else
+    {
+        if (newName != NULL && strlen(newName) > 0)
+        {
             strcpy(root->name, newName);
         }
-        if (newNumber != NULL && strlen(newNumber) > 0) {
-            if (root->phoneNumberS->next == NULL) {
+        if (newNumber != NULL && strlen(newNumber) > 0)
+        {
+            if (root->phoneNumberS->next == NULL)
+            {
                 strcpy(root->phoneNumberS->phoneNumber, newNumber);
-            } else {
+            }
+            else
+            {
                 printf("Pilih nomor telepon yang ingin diperbarui:\n");
                 displayPhoneNumbers(root->phoneNumberS);
                 int choice;
@@ -388,31 +445,39 @@ void updateContact(node *root, const char *inputName, const char *newName, char 
                 updatePhoneNumber(root, choice, newNumber);
             }
         }
-        if (!isRecursive) {
+        if (!isRecursive)
+        {
             saveToFile(root, "data.txt");
             printf("Kontak berhasil diperbarui\n");
         }
     }
 }
 
-void displayPhoneNumbers(numberList *phoneNumbers) {
+void displayPhoneNumbers(numberList *phoneNumbers)
+{
     int i = 1;
     numberList *current = phoneNumbers;
-    while (current != NULL) {
+    while (current != NULL)
+    {
         printf("%d. %s\n", i, current->phoneNumber);
         current = current->next;
         i++;
     }
 }
 
-void updatePhoneNumber(node *contact, int index, char newNumber[13]) {
+void updatePhoneNumber(node *contact, int index, char newNumber[13])
+{
     numberList *current = contact->phoneNumberS;
-    for (int i = 1; current != NULL && i < index; i++) {
+    for (int i = 1; current != NULL && i < index; i++)
+    {
         current = current->next;
     }
-    if (current != NULL) {
+    if (current != NULL)
+    {
         strcpy(current->phoneNumber, newNumber);
-    } else {
+    }
+    else
+    {
         printf("Nomor telepon tidak valid.\n");
     }
 }
