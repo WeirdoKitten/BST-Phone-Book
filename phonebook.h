@@ -22,7 +22,7 @@ typedef struct node {
 extern node* root;
 
 /* 
-    Tujuan Prosedur : membuat node baru pada binary search tree yang berisi nama dan nomor telepon yang diinputkan.
+    Tujuan Fungsi : membuat node baru pada binary search tree yang berisi nama dan nomor telepon yang diinputkan.
 */
 node* createNode(char inputName[50], char inputNumber[13]);
 
@@ -69,12 +69,17 @@ void loadFromFile(const char *filename);
 void toCapitalizeCase(char str[]);
 
 /* 
-    Tujuan Prosedur : mencari node dengan nilai paling kecil dalam subtree kanan dari node tertentu, yang digunakan dalam proses penghapusan node.
+    Tujuan Fungsi : mencari node dengan nilai paling kecil dalam subtree kanan dari node tertentu, yang digunakan dalam proses penghapusan node.
 */
 node* findMin(node* root);
 
+/*
+    Tujuan Prosedur : untuk menghapus phone number dari linked list
+*/
+void deletePhoneNumber(node *contact, int index);
+
 /* 
-    Tujuan Prosedur : menghapus node berdasarkan nama yang diinputkan dari binary search tree.
+    Tujuan Fungsi : menghapus node berdasarkan nama yang diinputkan dari binary search tree.
 */
 node* deleteContact(node *root, char inputName[50]);
 

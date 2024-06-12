@@ -258,6 +258,25 @@ node *findMin(node *root)
     return root;
 }
 
+void deletePhoneNumber(node *contact, int index) {
+    numberList *current = contact->phoneNumberS;
+    numberList *prev = NULL;
+    for (int i = 1; current != NULL && i < index; i++) {
+        prev = current;
+        current = current->next;
+    }
+    if (current != NULL) {
+        if (prev == NULL) {
+            contact->phoneNumberS = current->next;
+        } else {
+            prev->next = current->next;
+        }
+        free(current);
+    } else {
+        printf("Nomor telepon tidak valid.\n");
+    }
+}
+
 node *deleteContact(node *root, char inputName[50])
 {
     if (root == NULL)
@@ -268,6 +287,25 @@ node *deleteContact(node *root, char inputName[50])
     else if (strcmp(inputName, root->name) > 0)
         root->right = deleteContact(root->right, inputName);
     else {
+         if (root->phoneNumberS->next != NULL) {
+            int choice;
+            printf("Kontak ini memiliki beberapa nomor telepon. Pilih opsi:\n");
+            printf("1. Hapus seluruh kontak\n");
+            printf("2. Hapus nomor telepon tertentu\n");
+            printf("Pilihan: ");
+            scanf("%d", &choice);
+
+            if (choice == 2) {
+                printf("Pilih nomor telepon yang ingin dihapus:\n");
+                displayPhoneNumbers(root->phoneNumberS);
+                int numChoice;
+                printf("Masukkan nomor pilihan: ");
+                scanf("%d", &numChoice);
+                deletePhoneNumber(root, numChoice);
+                saveToFile(root, "data.txt");
+                return root;
+            }
+        }
         if (root->left == NULL || root->right == NULL) {
             node *temp = root->left ? root->left : root->right;
 
