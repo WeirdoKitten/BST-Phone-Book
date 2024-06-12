@@ -38,7 +38,7 @@ int main()
             if (root == NULL)
             {
                 printBanner();
-                printf("\t\t\t\tData Tidak Tersedia");
+                printf("\n\n\n\t\t\t\tData Tidak Tersedia");
                 getch();
                 break;
             }
@@ -48,10 +48,11 @@ int main()
             scanf("%[^\n]%*c", inputSearch);
             toCapitalizeCase(inputSearch); // Ubah nama yang diinput menjadi kapital case
             printf("\n");
+            printf("\t\t\t\tBerikut adalah nama-nama kontak yang sesuai:\n\n");
             search(root, inputSearch, &ditemukan);
             if (ditemukan == false)
             {
-                printf("\n\t\t\t\tTidak ada...");
+                printf("\n\t\t\t\t\tKontak Tidak Ditemukan...");
             }
             printf("\n\t\t\t\t\tEnter untuk melanjutkan------ ");
             getch();
@@ -63,10 +64,11 @@ int main()
             printf("\n\n\n\t\t\t\t\tCari nama kontak yang ingin update : ");
             scanf("%[^\n]%*c", inputSearch);
             toCapitalizeCase(inputSearch); // Ubah nama yang diinput menjadi kapital case
+            printf("\t\t\t\tBerikut adalah nama-nama kontak yang sesuai:\n\n");
             search(root, inputSearch, &ditemukan);
             if (ditemukan == false)
             {
-                printf("\n\t\t\t\tKosong\n\t\t\t\tEnter untuk melanjutkan------ ");
+                printf("\n\t\t\t\tKontak Tidak Ditemukan\n\t\t\t\tEnter untuk melanjutkan------ ");
                 getch();
                 goto break_case4;
             }
@@ -99,14 +101,15 @@ int main()
             printf("\n\n\n\t\t\t\t\tCari nama kontak yang ingin dihapus: ");
             scanf("%[^\n]%*c", inputSearch);
             toCapitalizeCase(inputSearch); // Ubah nama yang diinput menjadi kapital case
+            printf("\t\t\t\tBerikut adalah nama-nama kontak yang sesuai:\n\n");
             search(root, inputSearch, &ditemukan);
             if (ditemukan == false)
             {
-                printf("\n\t\t\t\tKosong\n\t\t\t\tEnter untuk melanjutkan------ ");
+                printf("\n\t\t\t\tKontak Tidak Ditemukan\n\t\t\t\tEnter untuk melanjutkan------ ");
                 getch();
                 goto break_case5;
             }
-            printf("\nEnter untuk melanjutkan------ ");
+            printf("\n\t\t\t\tEnter untuk melanjutkan------ ");
             while ((getchar()) != '\n');
             printf("\t\t\t\t\tinputkan nama yang ingin dihapus : ");
             scanf("%[^\n]%*c", inputSearch);
