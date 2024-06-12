@@ -144,15 +144,15 @@ void printAllNode(node *currNode)
     if (currNode != NULL)
     {
         printAllNode(currNode->left);
-        printf("\t\t\t\t===================================================\n");
-        printf("\t\t\t\tNama          : %s\n", currNode->name);
+        printf("\t\t\t\t\t\t===================================================\n");
+        printf("\t\t\t\t\t\tNama          : %s\n", currNode->name);
         numberList *numList = currNode->phoneNumberS;
         while (numList != NULL)
         {
-            printf("\t\t\t\tNomor Telepon : %s\n", numList->phoneNumber);
+            printf("\t\t\t\t\t\tNomor Telepon : %s\n", numList->phoneNumber);
             numList = numList->next;
         }
-        printf("\t\t\t\t===================================================\n\n");
+        printf("\t\t\t\t\t\t===================================================\n\n");
         printAllNode(currNode->right);
     }
 }
@@ -184,14 +184,14 @@ void search(node *root, char inputName[50], bool *found) {
     if (root != NULL) {
         if (strstr(root->name, formattedName)) {
             *found = true;
-            printf("\t\t\t\t===================================================\n");
-            printf("\t\t\t\tNama          : %s\n", root->name);
+            printf("\t\t\t\t\t\t===================================================\n");
+            printf("\t\t\t\t\t\tNama          : %s\n", root->name);
             numberList *numList = root->phoneNumberS;
             while (numList != NULL) {
-                printf("\t\t\t\tNomor Telepon : %s\n", numList->phoneNumber);
+                printf("\t\t\t\t\t\tNomor Telepon : %s\n", numList->phoneNumber);
                 numList = numList->next;
             }
-            printf("\t\t\t\t===================================================\n\n");
+            printf("\t\t\t\t\t\t===================================================\n\n");
         }
         search(root->left, formattedName, found);
         search(root->right, formattedName, found);

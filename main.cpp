@@ -20,6 +20,7 @@ int main()
         case 1:
             system("cls");
             printBanner();
+            printf("\n\n");
             if (root == NULL)
             {
                 printf("\t\t\t\tKontak Tidak Tersedia");
