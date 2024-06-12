@@ -141,7 +141,6 @@ void insertData(char inputName[50], char inputNumber[13])
 
 void printAllNode(node *currNode)
 {
-    printBanner();
     if (currNode != NULL)
     {
         printAllNode(currNode->left);

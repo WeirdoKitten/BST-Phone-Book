@@ -19,6 +19,7 @@ int main()
         {
         case 1:
             system("cls");
+            printBanner();
             if (root == NULL)
             {
                 printf("\t\t\t\tKontak Tidak Tersedia");
