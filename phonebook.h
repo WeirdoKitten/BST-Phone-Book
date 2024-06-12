@@ -49,7 +49,7 @@ void printAllNode(node *currNode);
 /* 
     Tujuan Prosedur : mencari node berdasarkan nama yang diinputkan, kemudian mencetak nama dan daftar nomor telepon yang dimilikinya.
 */
-void search(node *root, char inputName[50]);
+void search(node *root, char inputName[50], bool* found);
 
 /* 
     Tujuan Prosedur : menyimpan semua data nama dan nomor telepon yang tersimpan dalam binary search tree ke dalam file eksternal.
@@ -87,5 +87,15 @@ void freeNumberList(numberList *numList);
     Tujuan Prosedur : memperbarui data nama dan/atau nomor telepon pada node tertentu dalam binary search tree. 
 */
 void updateContact(node *root, const char *inputName, const char *newName, char newNumber[13], int isRecursive);
+
+/*
+    Tujuan Prosedur : menampilkan nomor telepon dalam linked list
+*/
+void displayPhoneNumbers(numberList *phoneNumbers);
+
+/*
+    Tujuan Prosedur : update nomor telepon saja
+*/
+void updatePhoneNumber(node *contact, int index, char newNumber[13]);
 
 #endif

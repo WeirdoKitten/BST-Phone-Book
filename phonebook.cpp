@@ -173,13 +173,14 @@ void inputData()
     saveToFile(root, "data.txt");
 }
 
-void search(node *root, char inputName[50]) {
+void search(node *root, char inputName[50], bool *found) {
     char formattedName[50];
     strcpy(formattedName, inputName);
     toCapitalizeCase(formattedName);
 
     if (root != NULL) {
         if (strstr(root->name, formattedName)) {
+            *found = true;
             printf("===================================================\n");
             printf("Nama          : %s\n", root->name);
             numberList *numList = root->phoneNumberS;
@@ -189,8 +190,8 @@ void search(node *root, char inputName[50]) {
             }
             printf("===================================================\n\n");
         }
-        search(root->left, formattedName);
-        search(root->right, formattedName);
+        search(root->left, formattedName, found);
+        search(root->right, formattedName, found);
     }
 }
 
@@ -321,8 +322,7 @@ void freeNumberList(numberList *numList) {
 
 void updateContact(node *root, const char *inputName, const char *newName, char newNumber[13], int isRecursive)
 {
-    if (root == NULL)
-    {
+    if (root == NULL) {
         printf("Kontak tidak ditemukan\n");
         return;
     }
@@ -331,27 +331,47 @@ void updateContact(node *root, const char *inputName, const char *newName, char 
         updateContact(root->left, inputName, newName, newNumber, 1);
     else if (strcmp(inputName, root->name) > 0)
         updateContact(root->right, inputName, newName, newNumber, 1);
-    else
-    {
-        if (newName != NULL && strlen(newName) > 0)
-        {
+    else {
+        if (newName != NULL && strlen(newName) > 0) {
             strcpy(root->name, newName);
         }
-        if (newNumber != NULL && strlen(newNumber) > 0)
-        {
-            numberList *numList = root->phoneNumberS;
-            if (numList != NULL)
-            {
-                strcpy(numList->phoneNumber, newNumber);
-            }
-            else
-            {
-                addPhoneNumber(root, newNumber);
+        if (newNumber != NULL && strlen(newNumber) > 0) {
+            if (root->phoneNumberS->next == NULL) {
+                strcpy(root->phoneNumberS->phoneNumber, newNumber);
+            } else {
+                printf("Pilih nomor telepon yang ingin diperbarui:\n");
+                displayPhoneNumbers(root->phoneNumberS);
+                int choice;
+                printf("Masukkan nomor pilihan: ");
+                scanf("%d", &choice);
+                updatePhoneNumber(root, choice, newNumber);
             }
         }
-        if(!isRecursive){
-        saveToFile(root, "data.txt");
-        printf("Kontak berhasil diperbarui\n");
+        if (!isRecursive) {
+            saveToFile(root, "data.txt");
+            printf("Kontak berhasil diperbarui\n");
         }
+    }
+}
+
+void displayPhoneNumbers(numberList *phoneNumbers) {
+    int i = 1;
+    numberList *current = phoneNumbers;
+    while (current != NULL) {
+        printf("%d. %s\n", i, current->phoneNumber);
+        current = current->next;
+        i++;
+    }
+}
+
+void updatePhoneNumber(node *contact, int index, char newNumber[13]) {
+    numberList *current = contact->phoneNumberS;
+    for (int i = 1; current != NULL && i < index; i++) {
+        current = current->next;
+    }
+    if (current != NULL) {
+        strcpy(current->phoneNumber, newNumber);
+    } else {
+        printf("Nomor telepon tidak valid.\n");
     }
 }
